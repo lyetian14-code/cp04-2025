@@ -155,7 +155,7 @@
     var period=0;
     var rest=0;
     var etime=0;
-    
+
     // ボタンの初期設定
     function init(){
         $('#btnA').prop('disabled', false);
@@ -180,18 +180,22 @@
     
     // ButtonAがクリックされた時の処理
     function btnAClick(e){
+        active=true;
+        startTime=new Date();
     }
 
     // ButtonBがクリックされた時の処理
-    function btnBClick(e){
-        
-        
+    function btnBClick(e){ 
+        active=false;
     }
 
     // ButtonCがクリックされた時の処理
     function btnCClick(e){
         alarm();
-        
+        active=false;
+        period=60*parseInt($("#minute").val())+parseInt($("#second").val());
+        $("#time").html("経過時間:0");
+        $("#remain").html("残り時間:"+period);
     }
     
  
