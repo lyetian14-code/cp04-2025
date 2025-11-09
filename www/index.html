@@ -38,6 +38,15 @@
         $('#btnC').click(function(e) {
             btnCClick(e);
         });
+
+        $('#btnD').click(function(e){
+            btnDClick(e);
+        });
+
+        $('#btnE').click(function(e){
+            btnEClick(e);
+        });
+
         init();
     });
     
@@ -161,7 +170,8 @@
         $('#btnA').prop('disabled', false);
         $('#btnB').prop('disabled', false);
         $('#btnC').prop('disabled', false);
-        
+        $('#btnD').prop('disabled', false);
+        $('#btnE').prop('disabled', false);
     }
 
     // Alarmの処理
@@ -182,11 +192,13 @@
     function btnAClick(e){
         active=true;
         startTime=new Date();
+        $("#text").html("時間計測中");
     }
 
     // ButtonBがクリックされた時の処理
     function btnBClick(e){ 
         active=false;
+        $("#text").html("停止中");
     }
 
     // ButtonCがクリックされた時の処理
@@ -195,24 +207,41 @@
         active=false;
         period=60*parseInt($("#minute").val())+parseInt($("#second").val());
         $("#time").html("経過時間:0");
-        $("#remain").html("残り時間:"+period);
+        $("#remain").html("残り時間:"+period+"秒");
+        $("#text").html("時間設定完了");
     }
-    
- 
+
+
+    function btnDClick(e){
+        active=false;
+        $("#btnD").html("Thank you to use me!");
+        $("#text").html("意味ないよw");
+        $("#btnD").css("background-color","gold");
+        $("#btnD").css("color","green");
+    }
+
+    function btnEClick(e){
+        active=false;
+        startTime=0;
+        $("#time").html("0");
+        $("#remain").html("残り時間:0秒");
+        $("#text").html("初期化完了");
+    }
+
     // 繰り返し実行する処理
     function timer(){  
         if(active){
             etime=parseInt((new Date()-startTime)/1000);
             rest=period-etime;
             $("#time").html("経過時間:"+etime)
-            $("#remain").html("残り時間:"+rest);
+            $("#remain").html("残り時間:"+rest+"秒");
             analog(rest);
         }
-        if(rest<=0){
+    if(rest<=0){
             active=false;
+        }
             alarm();
         }
-    } 
 
   </script>
 </head>
@@ -222,11 +251,14 @@
     <div id="minuteStr">〇</div>
     <div id="secondStr">〇</div>
 
+    <div id="text">message</div>
     <div id="remain">Remaining time</div>
     <div id="time">Time</div>
     <button id="btnA">Start</button>  
     <button id="btnB">Stop</button>  
-    <button id="btnC">Set</button>  
+    <button id="btnC">Set</button>
+    <button id="btnD">btnD</button>  
+    <button id="btnE">btnE</button>
     <input type="number" id="minute" value=0 >
     <input type="number" id="second" value=15 >
 </body>
